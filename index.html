@@ -1,0 +1,56 @@
+
+
+
+
+
+<div id="app"></div>
+<script src="js/aviso.js"></script>
+
+<script>
+  fetch('data/aviso.json')
+  .then(res => res.json())
+  .then(data => {
+    const app = document.getElementById('app');
+
+    let html = `<h1>${data.titulo}</h1><ul>`;
+    data.secciones.forEach(s => {
+      html += `<li>${s}</li>`;
+    });
+    html += `</ul>
+      <p><strong>Fundamento legal:</strong> ${data.fundamento}</p>
+      <small>Última actualización: ${data.ultimaActualizacion}</small>
+    `;
+
+    app.innerHTML = html;
+  });
+
+</script>
+
+<script>
+  const USER = "admin";
+const PASS = "1234"; // demo
+
+function login() {
+  const u = document.getElementById('user').value;
+  const p = document.getElementById('pass').value;
+
+  if (u === USER && p === PASS) {
+    localStorage.setItem("auth", "ok");
+    window.location.href = "admin.html";
+  } else {
+    alert("Acceso denegado");
+  }
+}
+
+function checkAuth() {
+  if (localStorage.getItem("auth") !== "ok") {
+    window.location.href = "login.html";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("auth");
+  window.location.href = "index.html";
+}
+
+</script>
